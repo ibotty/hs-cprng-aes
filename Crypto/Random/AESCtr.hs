@@ -14,6 +14,7 @@
 --
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE BangPatterns #-}
+{-# LANGUAGE DeriveDataTypeable #-}
 module Crypto.Random.AESCtr
     ( AESRNG
     , make
@@ -31,6 +32,8 @@ import qualified Data.ByteString as B
 import Data.Byteable
 import Data.Bits (xor, (.&.))
 
+import Data.Typeable (Typeable)
+
 -- | AES Counter mode Pseudo random generator.
 --
 -- Provide a very good Cryptographic pseudo random generator
@@ -46,6 +49,7 @@ data AESRNG = AESRNG { aesrngState     :: RNG
                      , aesrngEntropy   :: EntropyPool
                      , aesrngThreshold :: Int -- ^ in number of generated block
                      , aesrngCache     :: ByteString }
+  deriving Typeable
 
 instance Show AESRNG where
     show _ = "aesrng[..]"
